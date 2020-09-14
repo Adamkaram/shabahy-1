@@ -29,7 +29,7 @@ func (c Controller) Login(ctx *gin.Context) {
 		if loginError != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{"error": loginError.Error()})
 		} else {
-			ctx.JSON(http.StatusCreated, gin.H{"token": token})
+			ctx.JSON(http.StatusOK, gin.H{"token": token})
 		}
 	}
 }
