@@ -2,11 +2,11 @@ package users
 
 import (
 	"github.com/ElegantSoft/shabahy/db"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type Repository struct {
 }
-
 
 func (ur *Repository) Create(user *User) (error, *User) {
 	createUser := db.DB.Create(user)
@@ -16,14 +16,21 @@ func (ur *Repository) Create(user *User) (error, *User) {
 	return nil, user
 }
 
-func (ur Repository) FindUserById(id uint) (error, *User) {
+func (ur Repository) FindUserByIdAndPassword(data *LoginUserDTO) (error, *User) {
 	var user User
-	if result := db.DB.First(&User{}, id); result.Error == nil {
-		return nil, &user
-	} else {
-
-	return result.Error, &user
+	findCondition := &FindByEmail{
+		Email: data.Email,
 	}
+	result := db.DB.Select("email", "id", "password").First(&user, findCondition)
+	if result.Error == nil {
+		errorValidate := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(data.Password))
+		if errorValidate == nil {
+			return nil, &user
+		}
+		return errorValidate, nil
+	}
+	return result.Error, nil
+
 }
 
 func NewRepository() *Repository {

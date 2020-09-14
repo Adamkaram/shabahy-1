@@ -10,4 +10,5 @@ var (
 
 func RegisterRoutes(routerGroup *gin.RouterGroup)  {
 	routerGroup.POST( "/", controller.CreateUser)
+	routerGroup.POST( "/auth", controller.Login)
 }

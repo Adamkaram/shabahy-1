@@ -19,6 +19,21 @@ func (c Controller) CreateUser(ctx *gin.Context) {
 	}
 }
 
+func (c Controller) Login(ctx *gin.Context) {
+	var loginData LoginUserDTO
+	err := ctx.ShouldBind(&loginData)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	} else {
+		loginError, token := c.service.Login(&loginData)
+		if loginError != nil {
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": loginError.Error()})
+		} else {
+			ctx.JSON(http.StatusCreated, gin.H{"token": token})
+		}
+	}
+}
+
 func NewController(service *Service) *Controller {
 	return &Controller{
 		service: *service,
