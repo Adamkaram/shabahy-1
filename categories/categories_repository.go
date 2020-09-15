@@ -2,31 +2,42 @@ package categories
 
 import (
 	"github.com/ElegantSoft/shabahy/db"
+	"gorm.io/gorm"
 )
 
 type Repository struct {
 }
 
-type model Category
 
-func (r *Repository) Create(item *model) (error, *model) {
-	createUser := db.DB.Create(&item)
-	if createUser.Error != nil {
+func (r *Repository) Find(id uint) (error, *Category)  {
+	var itemToFind Category
+	if err := db.DB.First(&itemToFind, id); err.Error != nil {
+		return err.Error, nil
+	}
+	return nil, &itemToFind
+}
+
+func (r *Repository) Create(item *Category) (error, *Category) {
+	if createUser := db.DB.Create(&item); createUser.Error != nil {
 		return createUser.Error, nil
 	}
-
 	return nil, item
 }
 
-func (r Repository) Update(item *model) error {
-	if err := db.DB.Model(&model{}).UpdateColumns(&item); err != nil {
+func (r *Repository) Update(item *Category, id uint) error {
+	var itemToUpdate = Category{
+		Model: gorm.Model{
+			ID:        id,
+		},
+	}
+	if err := db.DB.Model(&itemToUpdate).UpdateColumns(&item); err != nil {
 		return err.Error
 	}
 	return nil
 }
 
-func (r Repository) Delete(item *model) error {
-	if err := db.DB.Delete(model{}, &item); err != nil {
+func (r *Repository) Delete(id uint) error {
+	if err := db.DB.Delete(&Category{}, id); err != nil {
 		return err.Error
 	}
 	return nil

@@ -6,10 +6,10 @@ import (
 )
 
 type Controller struct {
-	service Service
+	service *Service
 }
 
-func (c Controller) CreateUser(ctx *gin.Context) {
+func (c *Controller) CreateUser(ctx *gin.Context) {
 	var user User
 	if err := ctx.ShouldBind(&user); err == nil {
 		_, created := c.service.Create(&user)
@@ -19,7 +19,7 @@ func (c Controller) CreateUser(ctx *gin.Context) {
 	}
 }
 
-func (c Controller) Login(ctx *gin.Context) {
+func (c *Controller) Login(ctx *gin.Context) {
 	var loginData LoginUserDTO
 	err := ctx.ShouldBind(&loginData)
 	if err != nil {
@@ -36,6 +36,6 @@ func (c Controller) Login(ctx *gin.Context) {
 
 func NewController(service *Service) *Controller {
 	return &Controller{
-		service: *service,
+		service: service,
 	}
 }
