@@ -2,8 +2,6 @@ package categories
 
 import (
 	"github.com/ElegantSoft/shabahy/common"
-	"github.com/ElegantSoft/shabahy/db"
-	"gorm.io/gorm"
 )
 
 type Repository struct {
@@ -20,19 +18,11 @@ func (r *Repository) Create(item *Category) (error, interface{}) {
 }
 
 func (r *Repository) Update(item *Category, id uint) error {
-	var itemToUpdate = &Category{
-		Model: gorm.Model{
-			ID: id,
-		},
-	}
-	return r.crud.Update(&itemToUpdate, &item)
+	return r.crud.Update(id, &item)
 }
 
 func (r *Repository) Delete(id uint) error {
-	if err := db.DB.Delete(&Category{}, id); err != nil {
-		return err.Error
-	}
-	return nil
+	return r.crud.Delete(id)
 }
 
 func NewRepository(crud *common.CrudRepository) *Repository {

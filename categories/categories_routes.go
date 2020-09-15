@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	crud = common.CrudRepository{Model: Category{}}
+	crud = *common.NewCrudRepository(&Category{}, "categories")
 	repository = *NewRepository(&crud)
 	service = *NewService(&repository)
 	controller = *NewController(&service)

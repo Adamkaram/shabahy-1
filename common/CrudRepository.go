@@ -2,10 +2,12 @@ package common
 
 import (
 	"github.com/ElegantSoft/shabahy/db"
+	"time"
 )
 
 type CrudRepository struct {
 	Model interface{}
+	table string
 }
 
 
@@ -23,23 +25,24 @@ func (r *CrudRepository) Create(item interface{}) (error, interface{}) {
 	return nil, item
 }
 
-func (r *CrudRepository) Update(dest interface{},item interface{}) error {
-	if err := db.DB.Model(dest).UpdateColumns(item); err != nil {
+func (r *CrudRepository) Update(id uint,item interface{}) error {
+	if err := db.DB.Table(r.table + " as t").Where("id", id).UpdateColumns(item); err != nil {
 		return err.Error
 	}
 	return nil
 }
 
 func (r *CrudRepository) Delete(id uint) error {
-	if err := db.DB.Delete(&r.Model, id); err != nil {
+	if err := db.DB.Table(r.table + " as t").Where("id", id).Update("deleted_at", time.Now()); err != nil {
 		return err.Error
 	}
 	return nil
 }
 
 
-func NewCrudRepository(model interface{}) *CrudRepository {
+func NewCrudRepository(model interface{}, table string) *CrudRepository {
 	return &CrudRepository{
 		Model: model,
+		table: table,
 	}
 }

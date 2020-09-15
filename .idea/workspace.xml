@@ -20,11 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="632dce5a-c380-4d99-9cdb-5dcfffa8e23c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/common/CrudRepository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/categories/categories_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/categories/categories_repository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/categories/categories_routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/categories/categories_routes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/categories/categories_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/categories/categories_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/CrudRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/CrudRepository.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,6 +103,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="469" y="179" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1600101152368" />
+    <state x="667" y="172" width="586" height="735" key="find.popup" timestamp="1600196881475">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="667" y="172" width="586" height="735" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1600196881475" />
     <state x="625" y="241" width="670" height="676" key="search.everywhere.popup" timestamp="1600189548877">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
