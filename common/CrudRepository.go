@@ -6,7 +6,6 @@ import (
 )
 
 type CrudRepository struct {
-	Model interface{}
 	table string
 }
 
@@ -40,9 +39,8 @@ func (r *CrudRepository) Delete(id uint) error {
 }
 
 
-func NewCrudRepository(model interface{}, table string) *CrudRepository {
+func NewCrudRepository(table string) *CrudRepository {
 	return &CrudRepository{
-		Model: model,
 		table: table,
 	}
 }

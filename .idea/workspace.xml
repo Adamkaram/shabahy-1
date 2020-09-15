@@ -20,8 +20,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="632dce5a-c380-4d99-9cdb-5dcfffa8e23c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/categories/categories_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/categories/categories_repository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/categories/categories_routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/categories/categories_routes.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/CrudRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/CrudRepository.go" afterDir="false" />
     </list>
