@@ -5,11 +5,11 @@ type Service struct {
 }
 
 
-func (s *Service) Find(id uint) (error, *Category) {
+func (s *Service) Find(id uint) (error, interface{}) {
 	return s.repo.Find(id)
 }
 
-func (s *Service) Create(item *Category) (error, *Category) {
+func (s *Service) Create(item *Category) (error, interface{}) {
 	return s.repo.Create(item)
 }
 

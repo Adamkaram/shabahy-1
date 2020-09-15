@@ -1,11 +1,13 @@
 package categories
 
 import (
+	"github.com/ElegantSoft/shabahy/common"
 	"github.com/gin-gonic/gin"
 )
 
 var (
-	repository = *NewRepository()
+	crud = common.CrudRepository{Model: Category{}}
+	repository = *NewRepository(&crud)
 	service = *NewService(&repository)
 	controller = *NewController(&service)
 )

@@ -1,39 +1,31 @@
 package categories
 
 import (
+	"github.com/ElegantSoft/shabahy/common"
 	"github.com/ElegantSoft/shabahy/db"
 	"gorm.io/gorm"
 )
 
 type Repository struct {
+	crud *common.CrudRepository
 }
 
-
-func (r *Repository) Find(id uint) (error, *Category)  {
+func (r *Repository) Find(id uint) (error, interface{}) {
 	var itemToFind Category
-	if err := db.DB.First(&itemToFind, id); err.Error != nil {
-		return err.Error, nil
-	}
-	return nil, &itemToFind
+	return r.crud.Find(id, &itemToFind)
 }
 
-func (r *Repository) Create(item *Category) (error, *Category) {
-	if createUser := db.DB.Create(&item); createUser.Error != nil {
-		return createUser.Error, nil
-	}
-	return nil, item
+func (r *Repository) Create(item *Category) (error, interface{}) {
+	return r.crud.Create(item)
 }
 
 func (r *Repository) Update(item *Category, id uint) error {
-	var itemToUpdate = Category{
+	var itemToUpdate = &Category{
 		Model: gorm.Model{
-			ID:        id,
+			ID: id,
 		},
 	}
-	if err := db.DB.Model(&itemToUpdate).UpdateColumns(&item); err != nil {
-		return err.Error
-	}
-	return nil
+	return r.crud.Update(&itemToUpdate, &item)
 }
 
 func (r *Repository) Delete(id uint) error {
@@ -43,7 +35,8 @@ func (r *Repository) Delete(id uint) error {
 	return nil
 }
 
-
-func NewRepository() *Repository {
-	return &Repository{}
+func NewRepository(crud *common.CrudRepository) *Repository {
+	return &Repository{
+		crud: crud,
+	}
 }

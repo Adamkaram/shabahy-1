@@ -20,15 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="632dce5a-c380-4d99-9cdb-5dcfffa8e23c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/categories/categories_controller.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/categories/categories_routes.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/categories/categories_service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/CrudRepository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/categories/categories_entity.go" beforeDir="false" afterPath="$PROJECT_DIR$/categories/categories_entity.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/categories/categories_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/categories/categories_repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/users_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/users/users_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories/categories_routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/categories/categories_routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories/categories_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/categories/categories_service.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
