@@ -20,8 +20,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="632dce5a-c380-4d99-9cdb-5dcfffa8e23c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/interests/interests_controller.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interests/interests_entity.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interests/interests_repository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interests/interests_routes.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interests/interests_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories/categories_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/categories/categories_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories/categories_entity.go" beforeDir="false" afterPath="$PROJECT_DIR$/categories/categories_entity.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories/categories_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/categories/categories_repository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/categories/categories_routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/categories/categories_routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories/categories_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/categories/categories_service.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/CrudRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/CrudRepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,11 +69,12 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/categories" />
-    <property name="settings.editor.selected.configurable" value="go.vgo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/categories" />
     </key>
   </component>
@@ -97,10 +109,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="719" y="349" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1600125093359" />
-    <state x="469" y="179" key="SettingsEditor" timestamp="1600101152368">
+    <state x="469" y="179" key="SettingsEditor" timestamp="1600206549194">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="469" y="179" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1600101152368" />
+    <state x="469" y="179" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1600206549194" />
     <state x="667" y="172" width="586" height="735" key="find.popup" timestamp="1600196881475">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

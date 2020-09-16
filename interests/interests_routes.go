@@ -1,4 +1,4 @@
-package categories
+package interests
 
 import (
 	"github.com/ElegantSoft/shabahy/common"
@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	crud = *common.NewCrudRepository( "categories")
+	crud = *common.NewCrudRepository( "interests")
 	repository = *NewRepository(&crud)
 	service = *NewService(&repository)
 	controller = *NewController(&service)
@@ -14,7 +14,6 @@ var (
 
 func RegisterRoutes(routerGroup *gin.RouterGroup)  {
 	routerGroup.GET( "/:id", controller.Find)
-	routerGroup.GET( "/", controller.Paginate)
 	routerGroup.POST( "/", controller.Create)
 	routerGroup.DELETE( "/:id", controller.Delete)
 	routerGroup.PUT( "/:id", controller.Update)

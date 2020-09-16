@@ -1,32 +1,23 @@
-package categories
+package interests
 
 import (
 	"github.com/ElegantSoft/shabahy/common"
-	"github.com/ElegantSoft/shabahy/db"
 )
 
 type Repository struct {
 	crud *common.CrudRepository
 }
 
-func (r Repository) Paginate() (error, interface{}) {
-	var result []CategoryAPI
-	if err := db.DB.Table("categories").Preload("Interests").Find(&result); err.Error != nil {
-		return err.Error, nil
-	}
-	return nil, result
-}
-
 func (r *Repository) Find(id uint) (error, interface{}) {
-	var itemToFind Category
+	var itemToFind Interest
 	return r.crud.Find(id, &itemToFind)
 }
 
-func (r *Repository) Create(item *Category) (error, interface{}) {
+func (r *Repository) Create(item *Interest) (error, interface{}) {
 	return r.crud.Create(item)
 }
 
-func (r *Repository) Update(item *Category, id uint) error {
+func (r *Repository) Update(item *Interest, id uint) error {
 	return r.crud.Update(id, &item)
 }
 

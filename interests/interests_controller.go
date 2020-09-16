@@ -1,4 +1,4 @@
-package categories
+package interests
 
 import (
 	"github.com/gin-gonic/gin"
@@ -23,18 +23,8 @@ func (s *Controller) Find(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"data": &found})
 }
 
-func (s *Controller) Paginate(ctx *gin.Context) {
-	err, found := s.service.Paginate()
-	if err != nil {
-		ctx.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-		return
-	}
-	ctx.JSON(http.StatusOK, gin.H{"data": &found})
-}
-
-
 func (s *Controller) Create(ctx *gin.Context) {
-	var item Category
+	var item Interest
 	if err := ctx.ShouldBind(&item); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -62,7 +52,7 @@ func (s *Controller) Delete(ctx *gin.Context) {
 }
 
 func (s *Controller) Update(ctx *gin.Context) {
-	var item Category
+	var item Interest
 	var byId ById
 	if err := ctx.ShouldBind(&item); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

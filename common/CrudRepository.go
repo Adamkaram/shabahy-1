@@ -9,6 +9,12 @@ type CrudRepository struct {
 	table string
 }
 
+func (r *CrudRepository) Paginate(dest interface{}) (error, interface{}) {
+	if err := db.DB.Table(r.table + " as t").Find(dest); err.Error != nil {
+		return err.Error, nil
+	}
+	return nil, dest
+}
 
 func (r *CrudRepository) Find(id uint, dest interface{}) (error, interface{})  {
 	if err := db.DB.First(dest, id); err.Error != nil {

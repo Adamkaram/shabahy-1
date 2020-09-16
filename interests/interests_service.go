@@ -1,23 +1,19 @@
-package categories
+package interests
 
 type Service struct {
 	repo Repository
 }
 
 
-func (s *Service) Paginate() (error, interface{}) {
-	return s.repo.Paginate()
-}
-
 func (s *Service) Find(id uint) (error, interface{}) {
 	return s.repo.Find(id)
 }
 
-func (s *Service) Create(item *Category) (error, interface{}) {
+func (s *Service) Create(item *Interest) (error, interface{}) {
 	return s.repo.Create(item)
 }
 
-func (s *Service) Update(item *Category, id uint) error {
+func (s *Service) Update(item *Interest, id uint) error {
 	return s.repo.Update(item, id)
 }
 
