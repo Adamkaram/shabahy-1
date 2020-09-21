@@ -11,12 +11,19 @@ type Controller struct {
 
 func (c *Controller) CreateUser(ctx *gin.Context) {
 	var user User
-	if err := ctx.ShouldBind(&user); err == nil {
-		_, created := c.service.Create(&user)
-		ctx.JSON(http.StatusCreated, created)
-	} else {
-		ctx.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	if err := ctx.ShouldBind(&user); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
+	err, created := c.service.Create(&user)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusCreated, created)
+	return
+
 }
 
 func (c *Controller) Login(ctx *gin.Context) {
@@ -24,14 +31,15 @@ func (c *Controller) Login(ctx *gin.Context) {
 	err := ctx.ShouldBind(&loginData)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	} else {
-		loginError, token := c.service.Login(&loginData)
-		if loginError != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{"error": loginError.Error()})
-		} else {
-			ctx.JSON(http.StatusOK, gin.H{"token": token})
-		}
+		return
 	}
+	loginError, token := c.service.Login(&loginData)
+	if loginError != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": loginError.Error()})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{"token": token})
+
 }
 
 func NewController(service *Service) *Controller {

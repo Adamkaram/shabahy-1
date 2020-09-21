@@ -20,10 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="632dce5a-c380-4d99-9cdb-5dcfffa8e23c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/migrations/create_type_gender.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/users_entity.go" beforeDir="false" afterPath="$PROJECT_DIR$/users/users_entity.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/users_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/users/users_controller.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
