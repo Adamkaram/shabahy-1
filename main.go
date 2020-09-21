@@ -4,6 +4,7 @@ import (
 	"github.com/ElegantSoft/shabahy/categories"
 	"github.com/ElegantSoft/shabahy/db"
 	"github.com/ElegantSoft/shabahy/interests"
+	"github.com/ElegantSoft/shabahy/migrations"
 	"github.com/ElegantSoft/shabahy/users"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -22,6 +23,7 @@ func main() {
 	); err != nil {
 		log.Fatal(err)
 	}
+	migrations.CreateGenderType()
 
 	userGroup := server.Group("users")
 	categoriesGroup := server.Group("categories")

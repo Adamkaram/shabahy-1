@@ -2,12 +2,21 @@ package users
 
 import "gorm.io/gorm"
 
+type Gender string
+
+const (
+	MALE Gender = "male"
+	FEMALE Gender = "female"
+)
+
+
 type User struct {
 	gorm.Model
-	Name string `json:"name" binding:"required"`
+	Name string `json:"name" binding:"required" gorm:"not null:true"`
 	Phone string `json:"phone" binding:"required"`
-	Email string `json:"email" binding:"required,email"`
-	Password string `json:"password" binding:"required,min=8"`
+	Email string `json:"email" binding:"required,email" gorm:"not null:true"`
+	Password string `json:"password" binding:"required,min=8" gorm:"not null:true"`
+	Gender string `json:"gender" gorm:"type:gender;not null:true;default:male"`
 }
 
 type LoginUserDTO struct {
