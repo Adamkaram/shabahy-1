@@ -13,7 +13,6 @@ func (ur *Repository) Create(user *User) (error, *User) {
 	if createUser.Error != nil {
 		return createUser.Error, nil
 	}
-
 	return nil, user
 }
 
