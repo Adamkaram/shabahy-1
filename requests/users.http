@@ -1,0 +1,19 @@
+### login user
+POST http://localhost:8080/users/auth
+Content-Type: application/json
+
+{
+  "email": "sdasdsa",
+  "password": "sadsad"
+}
+
+### create user
+POST http://localhost:8080/users/
+Content-Type: application/json
+
+{
+  "email": "saddasd",
+  "password": "123",
+  "gender": "female2"
+
+}

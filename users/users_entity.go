@@ -16,8 +16,9 @@ type User struct {
 	Phone string `json:"phone" binding:"required"`
 	Email string `json:"email" binding:"required,email" gorm:"not null:true"`
 	Password string `json:"password" binding:"required,min=8" gorm:"not null:true"`
-	Gender string `json:"gender" gorm:"type:gender;not null:true;default:male"`
+	Gender string `json:"gender" binding:"Enum=male_female" gorm:"type:gender;not null:true;default:male"`
 }
+
 
 type LoginUserDTO struct {
 	Email string `json:"email" binding:"required"`
