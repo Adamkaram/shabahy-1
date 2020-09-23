@@ -21,7 +21,7 @@ func (ur Repository) FindUserByIdAndPassword(data *LoginUserDTO) (error, *User) 
 	findCondition := &FindByEmail{
 		Email: data.Email,
 	}
-	result := db.DB.Select("email", "id", "password").First(&user, findCondition)
+	result := db.DB.First(&user, findCondition)
 	if result.Error == nil {
 		errorValidate := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(data.Password))
 		if errorValidate == nil {

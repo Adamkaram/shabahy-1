@@ -2,6 +2,135 @@ POST http://localhost:8080/users/
 Content-Type: application/json
 
 {
+  "email": "bebo@gmail.com",
+  "password": "12345678",
+  "gender": "male",
+  "phone": "01272567081",
+  "name": "bebo"
+
+}
+
+<> 2020-09-23T033933.201.json
+
+###
+
+POST http://localhost:8080/users/
+Content-Type: application/json
+
+{
+  "email": "bebo@gmail.com",
+  "password": "12345678",
+  "gender": "male",
+  "phone": "01272567081"
+
+}
+
+<> 2020-09-23T033917.400.json
+
+###
+
+POST http://localhost:8080/users/auth
+Content-Type: application/json
+
+{
+  "email": "asd@gmail.com",
+  "password": "12345678"
+}
+
+<> 2020-09-23T033819.200.json
+
+###
+
+POST http://localhost:8080/users/auth
+Content-Type: application/json
+
+{
+  "email": "asd@gmail.com",
+  "password": "12345678"
+}
+
+<> 2020-09-23T033816.200.json
+
+###
+
+POST http://localhost:8080/users/auth
+Content-Type: application/json
+
+{
+  "email": "asd@gmail.com",
+  "password": "12345678"
+}
+
+<> 2020-09-23T033811.200.json
+
+###
+
+POST http://localhost:8080/users/auth
+Content-Type: application/json
+
+{
+  "email": "asd@gmail.com",
+  "password": "12345678"
+}
+
+<> 2020-09-23T033750.200.json
+
+###
+
+POST http://localhost:8080/users/auth
+Content-Type: application/json
+
+{
+  "email": "asd@gmail.com",
+  "password": "12345678"
+}
+
+<> 2020-09-23T033740.200.json
+
+###
+
+POST http://localhost:8080/users/auth
+Content-Type: application/json
+
+{
+  "email": "asd@gmail.com",
+  "password": "12345678"
+}
+
+<> 2020-09-23T033617.200.json
+
+###
+
+POST http://localhost:8080/users/auth
+Content-Type: application/json
+
+{
+  "email": "sd@gmail.com",
+  "password": "12345678"
+}
+
+<> 2020-09-23T033606.404.json
+
+###
+
+POST http://localhost:8080/users/
+Content-Type: application/json
+
+{
+  "email": "saddasd",
+  "password": "123",
+  "gender": "female"
+
+}
+
+<> 2020-09-23T031929.400.json
+
+###
+
+POST http://localhost:8080/users/
+Content-Type: application/json
+
+{
   "email": "saddasd",
   "password": "123",
   "gender": "female2"
@@ -551,138 +680,6 @@ Content-Type: application/json
 }
 
 <> 2020-09-23T025252.400.json
-
-###
-
-POST http://localhost:8080/users/
-Content-Type: application/json
-
-{
-  "email": "saddasd",
-  "password": "123",
-  "gender": "female2"
-
-}
-
-###
-
-POST http://localhost:8080/users/
-Content-Type: application/json
-
-{
-  "email": "saddasd",
-  "password": "123",
-  "gender": "female2"
-
-}
-
-###
-
-POST http://localhost:8080/users/
-Content-Type: application/json
-
-{
-  "email": "saddasd",
-  "password": "123",
-  "gender": "female2"
-
-}
-
-<> 2020-09-23T025005.400.json
-
-###
-
-POST http://localhost:8080/users/
-Content-Type: application/json
-
-{
-  "email": "saddasd",
-  "password": "123",
-  "gender": "female2"
-
-}
-
-###
-
-POST http://localhost:8080/users/
-Content-Type: application/json
-
-{
-  "email": "saddasd",
-  "password": "123",
-  "gender": "female2"
-
-}
-
-<> 2020-09-23T024858.400.json
-
-###
-
-POST http://localhost:8080/users/
-Content-Type: application/json
-
-{
-  "email": "saddasd",
-  "password": "123",
-  "gender": "female2"
-
-}
-
-###
-
-POST http://localhost:8080/users/
-Content-Type: application/json
-
-{
-  "email": "saddasd",
-  "password": "123",
-  "gender": "female2"
-
-}
-
-<> 2020-09-23T024656.400.json
-
-###
-
-POST http://localhost:8080/users/
-Content-Type: application/json
-
-{
-  "email": "saddasd",
-  "password": "123",
-  "gender": "female"
-
-}
-
-<> 2020-09-23T024649.400.json
-
-###
-
-POST http://localhost:8080/users/
-Content-Type: application/json
-
-{
-  "email": "saddasd",
-  "password": "123",
-  "gender": "female"
-
-}
-
-<> 2020-09-23T024553.400.json
-
-###
-
-POST http://localhost:8080/users/
-Content-Type: application/json
-
-{
-  "email": "saddasd",
-  "password": "123",
-  "gender": "female"
-
-}
-
-<> 2020-09-23T024440.400.json
 
 ###
 
