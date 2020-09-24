@@ -1,14 +1,15 @@
 package users
 
 import (
-	"github.com/dgrijalva/jwt-go"
+	"github.com/ElegantSoft/shabahy/services"
 	"golang.org/x/crypto/bcrypt"
-	"os"
 )
 
 type Service struct {
 	repo Repository
+	jwtService services.JWTService
 }
+
 
 func (s Service) Create(user *User) (string, error) {
 	password, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.MinCost)
@@ -17,7 +18,7 @@ func (s Service) Create(user *User) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	token, err := s.GenerateToken(user.ID)
+	token, err := s.jwtService.GenerateToken(user.ID)
 	if err != nil {
 		return "", err
 	}
@@ -29,23 +30,18 @@ func (s Service) Login(data *LoginUserDTO) (string, *User, error) {
 	if err != nil {
 		return "", nil, err
 	}
-	token, err := s.GenerateToken(user.ID)
+	token, err := s.jwtService.GenerateToken(user.ID)
 	if err != nil {
 		return "", nil, err
 	}
 	return token, user, nil
 }
 
-func (s *Service) GenerateToken(userId uint) (string, error) {
-	atClaims := jwt.MapClaims{}
-	atClaims["user_id"] = userId
-	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
-	return at.SignedString([]byte(os.Getenv("ACCESS_SECRET")))
 
-}
 
-func NewService(repository *Repository) *Service {
+func NewService(repository *Repository, jwtService *services.JWTService) *Service {
 	return &Service{
 		repo: *repository,
+		jwtService: *jwtService,
 	}
 }

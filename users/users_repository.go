@@ -8,7 +8,7 @@ import (
 type Repository struct {
 }
 
-func (ur *Repository) Create(user *User) (error, *User) {
+func (r *Repository) Create(user *User) (error, *User) {
 	createUser := db.DB.Create(user)
 	if createUser.Error != nil {
 		return createUser.Error, nil
@@ -16,7 +16,7 @@ func (ur *Repository) Create(user *User) (error, *User) {
 	return nil, user
 }
 
-func (ur Repository) FindUserByIdAndPassword(data *LoginUserDTO) (error, *User) {
+func (r *Repository) FindUserByIdAndPassword(data *LoginUserDTO) (error, *User) {
 	var user User
 	findCondition := &FindByEmail{
 		Email: data.Email,
@@ -30,6 +30,17 @@ func (ur Repository) FindUserByIdAndPassword(data *LoginUserDTO) (error, *User) 
 		return errorValidate, nil
 	}
 	return result.Error, nil
+}
+
+func (r *Repository) GetUserData(id uint) (error, *User) {
+	var user User
+	findCondition := &User{
+		ID: id,
+	}
+	if err := db.DB.Find(&user, findCondition); err.Error != nil {
+		return err.Error, nil
+	}
+	return nil, &user
 
 }
 

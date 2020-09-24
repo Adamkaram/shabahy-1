@@ -39,7 +39,7 @@ func (c *Controller) Login(ctx *gin.Context) {
 	}
 	token, user, err := c.service.Login(&loginData)
 	if err != nil {
-		ctx.JSON(http.StatusNotFound, gin.H{"error": common.ValidateNotFound(err, "user not found")})
+		ctx.JSON(http.StatusNotFound, gin.H{"error": common.ConvertErrorToString(err, "user not found")})
 		return
 	}
 	ctx.JSON(http.StatusOK, gin.H{"token": token, "user": user})

@@ -3,6 +3,7 @@ package common
 import (
 	"errors"
 	"github.com/go-playground/validator/v10"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 	"strings"
 )
@@ -35,9 +36,12 @@ func validate(errors validator.ValidationErrors) string {
 	return resultErrors
 }
 
-func ValidateNotFound(err error, errorString string) string {
+func ConvertErrorToString(err error, errorString string) string {
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return errorString
+	}
+	if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
+		return "wrong password"
 	}
 	return err.Error()
 }
