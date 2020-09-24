@@ -6,8 +6,8 @@ import (
 
 type Interest struct {
 	gorm.Model
-	Name string `json:"name" binding:"required"`
-	CategoryID uint
+	Name string `json:"name" binding:"required" gorm:"not null:true"`
+	CategoryID uint `json:"category_id" gorm:"not null:true"`
 }
 
 type ById struct {
@@ -15,8 +15,8 @@ type ById struct {
 }
 type InterestAPI struct {
 	ID uint `uri:"id" binding:"required"`
-	Name string `json:"name" binding:"required"`
-	CategoryID uint
+	Name string `json:"name" binding:"required" gorm:"not null:true"`
+	CategoryID uint `json:"category_id" gorm:"not null:true"`
 }
 
 func (InterestAPI) TableName() string {

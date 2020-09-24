@@ -1,12 +1,16 @@
 package rooms
 
 import (
+	"github.com/ElegantSoft/shabahy/messages"
+	"github.com/ElegantSoft/shabahy/users"
 	"gorm.io/gorm"
 )
 
 type Room struct {
 	gorm.Model
-	Name      string `json:"name" binding:"required"`
+	Hash string `json:"hash" binding:"required" gorm:"not null:true"`
+	Users []users.User `json:"users" gorm:"many2many:room_users"`
+	Messages []messages.Message `json:"messages"`
 }
 
 type ById struct {

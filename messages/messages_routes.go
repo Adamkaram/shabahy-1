@@ -14,8 +14,8 @@ var (
 
 func RegisterRoutes(routerGroup *gin.RouterGroup)  {
 	routerGroup.GET( "/:id", controller.Find)
-	routerGroup.GET( "/", controller.Paginate)
-	routerGroup.POST( "/", controller.Create)
+	routerGroup.GET( "", controller.Paginate)
+	routerGroup.POST( "", controller.Create)
 	routerGroup.DELETE( "/:id", controller.Delete)
 	routerGroup.PUT( "/:id", controller.Update)
 }
