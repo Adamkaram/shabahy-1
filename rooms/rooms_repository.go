@@ -2,6 +2,8 @@ package rooms
 
 import (
 	"github.com/ElegantSoft/shabahy/common"
+	"github.com/ElegantSoft/shabahy/db"
+	"github.com/ElegantSoft/shabahy/users"
 )
 
 type Repository struct {
@@ -21,8 +23,18 @@ func (r *Repository) Find(id uint) (error, interface{}) {
 	return r.crud.Find(id, &itemToFind)
 }
 
-func (r *Repository) Create(item *Room) (error, interface{}) {
-	return r.crud.Create(item)
+func (r *Repository) Create(hash string, users *[]users.User) (error, *Room) {
+	room := &Room{
+		Hash: hash,
+	}
+	if err := db.DB.Create(&room); err.Error != nil {
+		return err.Error, nil
+	}
+	err := db.DB.Model(&room).Association(RoomSchema.Users).Append(users)
+	if err != nil {
+		return err, nil
+	}
+	return nil, room
 }
 
 func (r *Repository) Update(item *Room, id uint) error {

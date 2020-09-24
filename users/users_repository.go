@@ -3,6 +3,7 @@ package users
 import (
 	"github.com/ElegantSoft/shabahy/db"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 )
 
 type Repository struct {
@@ -35,7 +36,9 @@ func (r *Repository) FindUserByIdAndPassword(data *LoginUserDTO) (error, *User) 
 func (r *Repository) GetUserData(id uint) (error, *User) {
 	var user User
 	findCondition := &User{
-		ID: id,
+		Model: gorm.Model{
+			ID: id,
+		},
 	}
 	if err := db.DB.Find(&user, findCondition); err.Error != nil {
 		return err.Error, nil

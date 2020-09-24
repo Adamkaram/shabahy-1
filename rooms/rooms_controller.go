@@ -32,14 +32,13 @@ func (s *Controller) Paginate(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"data": &found})
 }
 
-
 func (s *Controller) Create(ctx *gin.Context) {
-	var item Room
-	if err := ctx.ShouldBind(&item); err != nil {
+	var users struct{ Users []uint `json:"users" binding:"required"` }
+	if err := ctx.ShouldBind(&users); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	err, found := s.service.Create(&item)
+	err, found := s.service.Create(users.Users)
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
@@ -79,9 +78,6 @@ func (s *Controller) Update(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, gin.H{"message": "updated"})
 }
-
-
-
 
 func NewController(service *Service) *Controller {
 	return &Controller{
