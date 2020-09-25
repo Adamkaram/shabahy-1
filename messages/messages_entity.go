@@ -8,17 +8,18 @@ type SchemaField string
 
 type Message struct {
 	gorm.Model
-	Text string `json:"text" binding:"required" gorm:"not null:true"`
-	UserID uint `json:"user_id" binding:"required" gorm:"not null:true"`
-	RoomID uint `json:"room_id" binding:"required" gorm:"not null:true"`
+	ID     uint   `json:"id" gorm:"primary_key"`
+	Text   string `json:"text" binding:"required" gorm:"not null:true"`
+	UserID uint   `json:"user_id" binding:"required" gorm:"not null:true"`
+	RoomID uint   `json:"room_id" binding:"required" gorm:"not null:true"`
 }
 
 var MessageSchema = struct {
-	Text SchemaField
+	Text   SchemaField
 	UserID SchemaField
 	RoomID SchemaField
 }{
-	Text: SchemaField("Text"),
+	Text:   SchemaField("Text"),
 	UserID: SchemaField("UserID"),
 	RoomID: SchemaField("RoomID"),
 }

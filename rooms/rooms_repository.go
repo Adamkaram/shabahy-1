@@ -3,7 +3,7 @@ package rooms
 import (
 	"github.com/ElegantSoft/shabahy/common"
 	"github.com/ElegantSoft/shabahy/db"
-	"github.com/ElegantSoft/shabahy/users"
+	"log"
 )
 
 type Repository struct {
@@ -23,7 +23,7 @@ func (r *Repository) Find(id uint) (error, interface{}) {
 	return r.crud.Find(id, &itemToFind)
 }
 
-func (r *Repository) Create(hash string, users *[]users.User) (error, *Room) {
+func (r *Repository) Create(hash string, users *[]User) (error, *Room) {
 	room := &Room{
 		Hash: hash,
 	}
@@ -35,6 +35,32 @@ func (r *Repository) Create(hash string, users *[]users.User) (error, *Room) {
 		return err, nil
 	}
 	return nil, room
+}
+
+type Test struct {
+	RoomID string `json:"room_id"`
+}
+
+func (r *Repository) FindRoomWithUsersIds(ids []uint) (error, bool) {
+
+	var result []Test
+
+	err := db.DB.Raw(`SELECT room_id
+							FROM room_users rm1
+							WHERE user_id IN ?
+							GROUP BY room_id
+							HAVING COUNT(user_id) = ?
+							AND NOT EXISTS
+							  (SELECT *
+							   FROM room_users rm2
+							   WHERE rm2.room_id = rm1.room_id
+								 AND user_id NOT IN ?)`, ids, len(ids), ids).Scan(&result)
+	if err.Error != nil {
+		log.Println("err2", err.Error)
+		return err.Error, false
+	}
+	log.Println(result)
+	return nil, len(result) > 0
 }
 
 func (r *Repository) Update(item *Room, id uint) error {

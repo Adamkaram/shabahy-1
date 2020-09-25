@@ -37,13 +37,6 @@ func (s Service) Login(data *LoginUserDTO) (string, *User, error) {
 	return token, user, nil
 }
 
-func GetUsersFromIds(ids []uint) []User {
-	var usersToAppend = make([]User, 0)
-	for i := 0; i< len(ids); i++ {
-		usersToAppend = append(usersToAppend, User{ID: ids[i]})
-	}
-	return usersToAppend
-}
 
 
 func NewService(repository *Repository, jwtService *services.JWTService) *Service {

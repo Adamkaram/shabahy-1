@@ -2,5 +2,5 @@ POST http://localhost:8080/rooms
 Content-Type: application/json
 
 {
-  "users": [1,6]
+  "users": [1,1]
 }
