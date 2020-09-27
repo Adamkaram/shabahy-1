@@ -58,7 +58,7 @@ func main() {
 	rooms.RegisterRoutes(roomsGroup)
 	messages.RegisterRoutes(messagesGroup)
 
-	log.Println("main secret", os.Getenv(common.K_JWT_SECRET))
+	log.Println("main secret", os.Getenv(common.KJwtSecret))
 
 
 	_ = server.Run()

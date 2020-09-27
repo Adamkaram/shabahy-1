@@ -33,7 +33,7 @@ func (j *jwtService) GenerateToken(id uint) (string, error) {
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(os.Getenv(common.K_JWT_SECRET)))
+	return token.SignedString([]byte(os.Getenv(common.KJwtSecret)))
 
 }
 
@@ -42,12 +42,12 @@ func (j *jwtService) ValidateToken(tokenString string) (*jwt.Token, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-		return []byte(os.Getenv(common.K_JWT_SECRET)), nil
+		return []byte(os.Getenv(common.KJwtSecret)), nil
 	})
 }
 
 func getSecretKey() string {
-	secret := os.Getenv(common.K_JWT_SECRET)
+	secret := os.Getenv(common.KJwtSecret)
 	log.Println("secret from func", secret)
 
 	if secret == "" {

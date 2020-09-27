@@ -1,26 +1,29 @@
 package rooms
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"github.com/ElegantSoft/shabahy/common"
 	"log"
 	"math/rand"
 	"strconv"
+	"time"
 )
 
 type Service struct {
 	repo Repository
 }
 
-func (s *Service) Paginate() (error, interface{}) {
-	return s.repo.Paginate()
+func (s *Service) paginate() (error, interface{}) {
+	return s.repo.paginate()
 }
 
-func (s *Service) Find(id uint) (error, interface{}) {
-	return s.repo.Find(id)
+func (s *Service) find(id uint) (error, interface{}) {
+	return s.repo.find(id)
 }
 
-func (s *Service) GetUsersFromIds(ids []uint) []User {
+func (s *Service) getUsersFromIds(ids []uint) []User {
 	var usersToAppend = make([]User, 0)
 	for i := 0; i < len(ids); i++ {
 		usersToAppend = append(usersToAppend, User{ID: ids[i]})
@@ -28,14 +31,14 @@ func (s *Service) GetUsersFromIds(ids []uint) []User {
 	return usersToAppend
 }
 
-func (s *Service) Create(usersFromRequest []uint) (error, *Room) {
-	hash := s.GenerateHash()
-	usersToAppend := s.GetUsersFromIds(usersFromRequest)
+func (s *Service) create(usersFromRequest []uint) (error, *Room) {
+	hash := s.generateHash()
+	usersToAppend := s.getUsersFromIds(usersFromRequest)
 	uniqueIds := common.Unique(usersFromRequest)
 	if len(uniqueIds) < 2 {
 		return fmt.Errorf("room should have more than user"), nil
 	}
-	err, exists := s.repo.FindRoomWithUsersIds(uniqueIds)
+	err, exists := s.repo.findRoomWithUsersIds(uniqueIds)
 	if err != nil {
 		log.Println("err1", err)
 		return err, nil
@@ -43,20 +46,31 @@ func (s *Service) Create(usersFromRequest []uint) (error, *Room) {
 	if exists {
 		return fmt.Errorf("room already exists"), nil
 	}
-	return s.repo.Create(hash, &usersToAppend)
+	return s.repo.create(hash, &usersToAppend)
 }
 
-func (s *Service) GenerateHash() string {
-	randomNumber := rand.Int()
-	return strconv.Itoa(randomNumber)
+func (s *Service) appendMessage(roomId uint, message *Message, userId uint) error {
+	room := &Room{
+		ID: roomId,
+	}
+	message.UserID = userId
+	return s.repo.appendMessage(room, message)
 }
 
-func (s *Service) Update(item *Room, id uint) error {
-	return s.repo.Update(item, id)
+func (s *Service) generateHash() string {
+	randomNumber := strconv.Itoa(rand.Int()) + time.Now().String()
+	sha := sha256.New()
+	sha.Write([]byte(randomNumber))
+	hash := hex.EncodeToString(sha.Sum(nil))
+	return hash
 }
 
-func (s *Service) Delete(id uint) error {
-	return s.repo.Delete(id)
+func (s *Service) update(item *Room, id uint) error {
+	return s.repo.update(item, id)
+}
+
+func (s *Service) delete(id uint) error {
+	return s.repo.delete(id)
 }
 
 func NewService(repository *Repository) *Service {

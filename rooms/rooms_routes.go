@@ -2,20 +2,18 @@ package rooms
 
 import (
 	"github.com/ElegantSoft/shabahy/common"
+	"github.com/ElegantSoft/shabahy/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
 var (
-	crud = *common.NewCrudRepository( "rooms")
+	crud       = *common.NewCrudRepository("rooms")
 	repository = *NewRepository(&crud)
-	service = *NewService(&repository)
+	service    = *NewService(&repository)
 	controller = *NewController(&service)
 )
 
-func RegisterRoutes(routerGroup *gin.RouterGroup)  {
-	routerGroup.GET( "/:id", controller.Find)
-	routerGroup.GET( "", controller.Paginate)
-	routerGroup.POST( "", controller.Create)
-	routerGroup.DELETE( "/:id", controller.Delete)
-	routerGroup.PUT( "/:id", controller.Update)
+func RegisterRoutes(routerGroup *gin.RouterGroup) {
+	routerGroup.POST("", controller.create)
+	routerGroup.POST("/message/:id", middlewares.AuthorizeJWT, controller.appendMessage)
 }

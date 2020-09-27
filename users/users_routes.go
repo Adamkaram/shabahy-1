@@ -19,7 +19,7 @@ func RegisterRoutes(routerGroup *gin.RouterGroup) {
 	routerGroup.POST("", controller.CreateUser)
 	routerGroup.POST("/auth", controller.Login)
 	routerGroup.GET("/me", middlewares.AuthorizeJWT, func(context *gin.Context) {
-		id, _ := context.Get(common.K_USER_HEADER)
+		id, _ := context.Get(common.KUserHeader)
 		context.JSON(200, gin.H{"id": id})
 	})
 }

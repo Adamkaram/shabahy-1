@@ -12,6 +12,10 @@ import (
 func AuthorizeJWT(context *gin.Context) {
 	const bearerSchema = "Bearer "
 	authHeader := context.GetHeader("Authorization")
+	if len(authHeader) < 10 {
+		context.AbortWithStatus(http.StatusUnauthorized)
+		return
+	}
 	tokenString := authHeader[len(bearerSchema):]
 	log.Println(tokenString)
 	token, err := services.NewJWTService().ValidateToken(tokenString)
@@ -21,10 +25,12 @@ func AuthorizeJWT(context *gin.Context) {
 	}
 	if token.Valid {
 		claims := token.Claims.(jwt.MapClaims)
-		log.Println("id", claims["id"])
-		context.Set(common.K_USER_HEADER, claims["id"])
+		id := claims["id"]
+		context.Set(common.KUserHeader, id)
+		context.Next()
 	} else {
 		log.Println(err)
 		context.AbortWithStatus(http.StatusUnauthorized)
+		return
 	}
 }

@@ -11,3 +11,8 @@ func Unique(intSlice []uint) []uint {
 	}
 	return list
 }
+
+func GetIdFromCtx(id interface{}) uint {
+	idFloat, _ := id.(float64)
+	return uint(idFloat)
+}

@@ -1,6 +1,28 @@
-POST http://localhost:8080/rooms
+### login user
+POST http://localhost:8080/users/auth
 Content-Type: application/json
 
 {
-  "users": [1,1]
+  "email": "asd@gmail.com",
+  "password": "12345678"
+}
+
+> {% client.global.set("auth_token", response.body.token) %}
+
+### create room
+POST http://localhost:8080/rooms
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "users": [99,1,5]
+}
+
+### add message
+POST http://localhost:8080/rooms/message/70
+Content-Type: application/json
+#Authorization: Bearer {{auth_token}}
+
+{
+  "text": "hi"
 }
