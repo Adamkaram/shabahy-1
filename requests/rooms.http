@@ -15,14 +15,18 @@ Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
 {
-  "users": [99,1,5]
+  "users": [99,1,5,45]
 }
 
 ### add message
-POST http://localhost:8080/rooms/message/70
+POST http://localhost:8080/rooms/message/79
 Content-Type: application/json
-#Authorization: Bearer {{auth_token}}
+Authorization: Bearer {{auth_token}}
 
 {
   "text": "hi"
 }
+
+###test
+GET http://localhost:8080/rooms/test
+

@@ -3,6 +3,7 @@ package rooms
 import (
 	"crypto/sha256"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"github.com/ElegantSoft/shabahy/common"
 	"log"
@@ -52,6 +53,11 @@ func (s *Service) create(usersFromRequest []uint) (error, *Room) {
 func (s *Service) appendMessage(roomId uint, message *Message, userId uint) error {
 	room := &Room{
 		ID: roomId,
+	}
+	usersId := s.repo.getUsers(roomId)
+	log.Println("userid", userId)
+	if !common.ContainsId(usersId, userId) {
+		return errors.New("you can't send message to this room")
 	}
 	message.UserID = userId
 	return s.repo.appendMessage(room, message)

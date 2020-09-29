@@ -27,7 +27,7 @@ func AuthorizeJWT(context *gin.Context) {
 		claims := token.Claims.(jwt.MapClaims)
 		id := claims["id"]
 		context.Set(common.KUserHeader, id)
-		context.Next()
+		//context.Next()
 	} else {
 		log.Println(err)
 		context.AbortWithStatus(http.StatusUnauthorized)

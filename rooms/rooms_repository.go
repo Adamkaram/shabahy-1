@@ -67,6 +67,16 @@ func (r *Repository) findRoomWithUsersIds(ids []uint) (error, bool) {
 	return nil, len(result) > 0
 }
 
+func (r *Repository) getUsers(roomId uint) []uint {
+	var result []struct{UserID uint `json:"user_id"`}
+	var usersId []uint
+	db.DB.Table("room_users").Where("room_id = ?", roomId).Select("user_id").Scan(&result)
+	for _,v := range result {
+		usersId = append(usersId, v.UserID)
+	}
+	return usersId
+}
+
 func (r *Repository) update(item *Room, id uint) error {
 	return r.crud.Update(id, &item)
 }

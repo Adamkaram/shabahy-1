@@ -16,3 +16,13 @@ func GetIdFromCtx(id interface{}) uint {
 	idFloat, _ := id.(float64)
 	return uint(idFloat)
 }
+
+func ContainsId(slice []uint, val interface{}) bool {
+	found := false
+	for _, v := range slice {
+		if v == val {
+			found = true
+		}
+	}
+	return found
+}

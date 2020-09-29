@@ -5,16 +5,21 @@ import (
 	"github.com/go-playground/validator/v10"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
+	"reflect"
 	"strings"
 )
 
 type GetError func(err validator.ValidationErrors) string
 
 func ValidateErrors(requestError error) string {
-	return validate(requestError.(validator.ValidationErrors))
+	if reflect.TypeOf(requestError) == reflect.TypeOf(validator.ValidationErrors{}) {
+		return validate(requestError.(validator.ValidationErrors))
+	}
+	return requestError.Error()
 }
 
 func validate(errors validator.ValidationErrors) string {
+
 	resultErrors := ""
 	for _, err := range errors {
 		switch err.Tag() {
@@ -27,7 +32,6 @@ func validate(errors validator.ValidationErrors) string {
 		case "Enum":
 			replacer := *strings.NewReplacer("_", ",")
 			resultErrors += err.Field() + " must be one of " + replacer.Replace(err.Param())
-
 
 		default:
 			resultErrors += "error in filed " + err.Tag()
