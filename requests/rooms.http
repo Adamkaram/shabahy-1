@@ -24,8 +24,12 @@ Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
 {
-  "text": "hi"
+  "text": "hi8"
 }
+
+### get room with messages
+GET http://localhost:8080/rooms/get/22
+Authorization: Bearer {{auth_token}}
 
 ###test
 GET http://localhost:8080/rooms/test

@@ -20,7 +20,11 @@ func (s *Service) paginate() (error, interface{}) {
 	return s.repo.paginate()
 }
 
-func (s *Service) find(id uint) (error, interface{}) {
+func (s *Service) find(id uint, userId uint) (error, *Room) {
+	roomUsers := s.repo.getUsers(id)
+	if !common.Contains(userId, roomUsers) {
+		return errors.New("you can't get messages from this room"), nil
+	}
 	return s.repo.find(id)
 }
 
@@ -54,9 +58,9 @@ func (s *Service) appendMessage(roomId uint, message *Message, userId uint) erro
 	room := &Room{
 		ID: roomId,
 	}
-	usersId := s.repo.getUsers(roomId)
+	roomUsers := s.repo.getUsers(roomId)
 	log.Println("userid", userId)
-	if !common.ContainsId(usersId, userId) {
+	if !common.Contains(userId, roomUsers) {
 		return errors.New("you can't send message to this room")
 	}
 	message.UserID = userId

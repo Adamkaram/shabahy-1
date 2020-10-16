@@ -21,7 +21,7 @@ func (s *Controller) create(ctx *gin.Context) {
 		ctx.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
-	ctx.JSON(http.StatusOK, gin.H{"data": &found})
+	ctx.JSON(http.StatusCreated, gin.H{"data": &found})
 }
 
 func (s *Controller) appendMessage(ctx *gin.Context) {
@@ -46,19 +46,22 @@ func (s *Controller) appendMessage(ctx *gin.Context) {
 
 }
 
-//func (s *Controller) find(ctx *gin.Context) {
-//	var item ById
-//	if err := ctx.ShouldBindUri(&item); err != nil {
-//		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-//		return
-//	}
-//	err, found := s.service.find(item.ID)
-//	if err != nil {
-//		ctx.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-//		return
-//	}
-//	ctx.JSON(http.StatusOK, gin.H{"data": &found})
-//}
+func (s *Controller) find(ctx *gin.Context) {
+	var item ById
+	idHeader, _ := ctx.Get(common.KUserHeader)
+	userId := common.GetIdFromCtx(idHeader)
+
+	if err := ctx.ShouldBindUri(&item); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": common.ValidateErrors(err)})
+		return
+	}
+	err, found := s.service.find(item.ID, userId)
+	if err != nil {
+		ctx.JSON(http.StatusForbidden, gin.H{"error": common.ValidateErrors(err)})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{"data": found})
+}
 
 //func (s *Controller) paginate(ctx *gin.Context) {
 //	err, found := s.service.paginate()

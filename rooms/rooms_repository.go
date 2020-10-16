@@ -3,6 +3,7 @@ package rooms
 import (
 	"github.com/ElegantSoft/shabahy/common"
 	"github.com/ElegantSoft/shabahy/db"
+	"gorm.io/gorm"
 	"log"
 )
 
@@ -18,9 +19,20 @@ func (r Repository) paginate() (error, interface{}) {
 	return nil, result
 }
 
-func (r *Repository) find(id uint) (error, interface{}) {
-	var itemToFind Room
-	return r.crud.Find(id, &itemToFind)
+func (r *Repository) find(id uint) (error, *Room) {
+	var room Room
+	err := db.DB.Model(&Room{}).
+		Preload(RoomSchema.Users).
+		Preload(RoomSchema.Messages, func(gormDB *gorm.DB) *gorm.DB {
+			return gormDB.Order("created_at DESC").Limit(5)
+		}).
+		Where("id = ?", id).
+		Select("id", "hash").
+		First(&room)
+	if err.Error != nil {
+		return err.Error, nil
+	}
+	return nil, &room
 }
 
 func (r *Repository) create(hash string, users *[]User) (error, *Room) {
@@ -37,10 +49,9 @@ func (r *Repository) create(hash string, users *[]User) (error, *Room) {
 	return nil, room
 }
 
-func (r *Repository) appendMessage(room *Room,message *Message) error {
+func (r *Repository) appendMessage(room *Room, message *Message) error {
 	return db.DB.Model(&room).Association(RoomSchema.Messages).Append(message)
 }
-
 
 func (r *Repository) findRoomWithUsersIds(ids []uint) (error, bool) {
 
@@ -68,10 +79,12 @@ func (r *Repository) findRoomWithUsersIds(ids []uint) (error, bool) {
 }
 
 func (r *Repository) getUsers(roomId uint) []uint {
-	var result []struct{UserID uint `json:"user_id"`}
+	var result []struct {
+		UserID uint `json:"user_id"`
+	}
 	var usersId []uint
 	db.DB.Table("room_users").Where("room_id = ?", roomId).Select("user_id").Scan(&result)
-	for _,v := range result {
+	for _, v := range result {
 		usersId = append(usersId, v.UserID)
 	}
 	return usersId
