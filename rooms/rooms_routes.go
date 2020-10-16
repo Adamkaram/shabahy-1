@@ -9,8 +9,8 @@ import (
 var (
 	crud       = *common.NewCrudRepository("rooms")
 	repository = *NewRepository(&crud)
-	service    = *NewService(&repository)
-	controller = *NewController(&service)
+	RoomService    = *NewService(&repository)
+	controller = *NewController(&RoomService)
 )
 
 func RegisterRoutes(routerGroup *gin.RouterGroup) {

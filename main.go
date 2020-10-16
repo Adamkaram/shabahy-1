@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"github.com/ElegantSoft/shabahy/categories"
+	"github.com/ElegantSoft/shabahy/chat"
 	"github.com/ElegantSoft/shabahy/common"
 	"github.com/ElegantSoft/shabahy/db"
 	"github.com/ElegantSoft/shabahy/interests"
@@ -30,38 +30,8 @@ func main() {
 	if err != nil {
 		log.Fatal("error in socket.io", err)
 	}
-	socketServer.OnConnect("/", func(s socketio.Conn) error {
-		
-		s.SetContext("")
-		fmt.Println("connected:", s.ID())
-		return nil
-	})
 
-	socketServer.OnEvent("/", "notice", func(s socketio.Conn, msg string) {
-		fmt.Println("notice:", msg)
-		s.Emit("reply", msg)
-	})
-
-
-	socketServer.OnEvent("/chat", "msg", func(s socketio.Conn, msg string) string {
-		s.SetContext(msg)
-		return "recv " + msg
-	})
-
-	socketServer.OnEvent("/", "bye", func(s socketio.Conn) string {
-		last := s.Context().(string)
-		s.Emit("bye", last)
-		s.Close()
-		return last
-	})
-
-	socketServer.OnError("/", func(s socketio.Conn, e error) {
-		fmt.Println("meet error:", e)
-	})
-
-	socketServer.OnDisconnect("", func(s socketio.Conn, reason string) {
-		fmt.Println("closed", reason)
-	})
+	chat.SetupSocket(socketServer)
 
 	go socketServer.Serve()
 	defer socketServer.Close()

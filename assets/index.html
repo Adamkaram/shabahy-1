@@ -1,40 +1,94 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-<title>Socket.IO chat</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font: 13px Helvetica, Arial; }
-form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-#messages { list-style-type: none; margin: 0; padding: 0; }
-#messages li { padding: 5px 10px; }
-#messages li:nth-child(odd) { background: #eee; }
-</style>
-</head>
-<body>
-<ul id="messages"></ul>
-<form action="">
-<input id="m" autocomplete="off" /><button>Send</button>
-</form>
-<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-<script>
-var socket = io();
-// socket.emit('msg', 'hello');
-var s2 = io("/chat");
-socket.on('reply', function(msg){
-$('#messages').append($('<li>').text(msg));
-});
-$('form').submit(function(){
-s2.emit('msg', $('#m').val(), function(data){
-$('#messages').append($('<li>').text('ACK CALLBACK: ' + data));
-});
-socket.emit('notice', $('#m').val());
-$('#m').val('');
-return false;
-});
-</script>
-</body>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font: 13px Helvetica, Arial;
+      }
+      form {
+        background: #000;
+        padding: 3px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+      form input {
+        border: 0;
+        padding: 10px;
+        width: 90%;
+        margin-right: 0.5%;
+      }
+      form button {
+        width: 9%;
+        background: rgb(130, 224, 255);
+        border: none;
+        padding: 10px;
+      }
+      #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #messages li {
+        padding: 5px 10px;
+      }
+      #messages li:nth-child(odd) {
+        background: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button type="button" id="send">
+        Send
+      </button>
+      <input id="room-id" autocomplete="off" /><button type="button" id="join">
+        join room
+      </button>
+    </form>
+
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var s2 = io("/chat", {
+        query: {
+          access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjAyODY4ODMyLCJpc3MiOiJzaGFiYWh5LmNvbSJ9.1PbhoVswXHkBua9WEXpF-eqpxxzqviMulu6fcBQQhBI",
+        },
+      });
+      var roomId = $("#room-id");
+      var message = $("#m");
+      $("#join").click(function () {
+        s2.emit("join-room", roomId.val());
+      });
+      $("#send").click(function () {
+        var data = { room_hash: roomId.val(), message: message.val() };
+        s2.emit("send-message", JSON.stringify(data));
+        message.val("");
+      });
+
+      s2.on("receive-message", function (msg) {
+        console.log(msg);
+        $("#messages").append($("<li>").text(msg));
+      });
+      // s2.emit("join-room")
+      // socket.on("reply", function (msg) {
+
+      // });
+      // $("form").submit(function () {
+      //   s2.emit("msg", $("#m").val(), function (data) {
+      //     $("#messages").append($("<li>").text("ACK CALLBACK: " + data));
+      //   });
+      //   socket.emit("notice", $("#m").val());
+      //   $("#m").val("");
+      //   return false;
+      // });
+    </script>
+  </body>
 </html>

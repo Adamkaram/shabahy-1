@@ -54,7 +54,7 @@ func (s *Service) create(usersFromRequest []uint) (error, *Room) {
 	return s.repo.create(hash, &usersToAppend)
 }
 
-func (s *Service) appendMessage(roomId uint, message *Message, userId uint) error {
+func (s *Service) AppendMessage(roomId uint, message *Message, userId uint) error {
 	room := &Room{
 		ID: roomId,
 	}

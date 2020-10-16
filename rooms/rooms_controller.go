@@ -37,7 +37,7 @@ func (s *Controller) appendMessage(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": common.ValidateErrors(err)})
 		return
 	}
-	err := s.service.appendMessage(params.ID, &message, userId)
+	err := s.service.AppendMessage(params.ID, &message, userId)
 	if err != nil {
 	    ctx.JSON(http.StatusBadRequest, gin.H{"error": common.ValidateErrors(err)})
 	    return
