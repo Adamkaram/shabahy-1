@@ -54,17 +54,24 @@ func (s *Service) create(usersFromRequest []uint) (error, *Room) {
 	return s.repo.create(hash, &usersToAppend)
 }
 
-func (s *Service) AppendMessage(roomId uint, message *Message, userId uint) error {
-	room := &Room{
-		ID: roomId,
+func (s *Service) AppendMessage(hash string, text string, userId uint) error {
+	err, room := s.repo.getRoomByHash(hash)
+
+	message := Message{
+		Text: text,
 	}
-	roomUsers := s.repo.getUsers(roomId)
-	log.Println("userid", userId)
+
+	if err != nil {
+		return errors.New("room not found")
+	}
+
+	roomUsers := s.repo.getUsers(room.ID)
+	log.Printf("%+v, %v", roomUsers, userId)
 	if !common.Contains(userId, roomUsers) {
 		return errors.New("you can't send message to this room")
 	}
 	message.UserID = userId
-	return s.repo.appendMessage(room, message)
+	return s.repo.appendMessage(room, &message)
 }
 
 func (s *Service) generateHash() string {

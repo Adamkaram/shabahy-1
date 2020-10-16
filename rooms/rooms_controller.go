@@ -26,7 +26,7 @@ func (s *Controller) create(ctx *gin.Context) {
 
 func (s *Controller) appendMessage(ctx *gin.Context) {
 	var message Message
-	var params struct{ID uint `uri:"id" binding:"required"`}
+	var params struct{Hash string `uri:"hash" binding:"required"`}
 	idHeader, _ := ctx.Get(common.KUserHeader)
 	userId := common.GetIdFromCtx(idHeader)
 	if err := ctx.ShouldBindUri(&params); err != nil {
@@ -37,7 +37,7 @@ func (s *Controller) appendMessage(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": common.ValidateErrors(err)})
 		return
 	}
-	err := s.service.AppendMessage(params.ID, &message, userId)
+	err := s.service.AppendMessage(params.Hash, message.Text, userId)
 	if err != nil {
 	    ctx.JSON(http.StatusBadRequest, gin.H{"error": common.ValidateErrors(err)})
 	    return

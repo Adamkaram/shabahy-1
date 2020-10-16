@@ -6,7 +6,6 @@ import (
 	"github.com/ElegantSoft/shabahy/services"
 	"github.com/dgrijalva/jwt-go"
 	socketio "github.com/googollee/go-socket.io"
-	"log"
 	"net/url"
 )
 
@@ -14,7 +13,6 @@ func AuthorizeSocket(s socketio.Conn) (error, uint) {
 	rawQuery := s.URL().RawQuery
 	query, _ := url.ParseQuery(rawQuery)
 	tokenSlice := query["access_token"]
-	log.Printf("token -> %+v", tokenSlice)
 	var tokenString string
 	if len(tokenSlice) > 0 {
 		tokenString = tokenSlice[0]

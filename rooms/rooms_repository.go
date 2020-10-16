@@ -90,6 +90,15 @@ func (r *Repository) getUsers(roomId uint) []uint {
 	return usersId
 }
 
+func (r *Repository) getRoomByHash(hash string) (error,*Room) {
+	var room Room
+	err := db.DB.Model(&Room{}).Where("hash = ?", hash).First(&room)
+	if err.Error != nil {
+		return err.Error, nil
+	}
+	return nil, &room
+}
+
 func (r *Repository) update(item *Room, id uint) error {
 	return r.crud.Update(id, &item)
 }

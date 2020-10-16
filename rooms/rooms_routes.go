@@ -15,7 +15,7 @@ var (
 
 func RegisterRoutes(routerGroup *gin.RouterGroup) {
 	routerGroup.POST("", controller.create)
-	routerGroup.POST("/message/:id", middlewares.AuthorizeJWT, controller.appendMessage)
+	routerGroup.POST("/message/:hash", middlewares.AuthorizeJWT, controller.appendMessage)
 	routerGroup.GET("/get/:id", middlewares.AuthorizeJWT, controller.find)
 	//routerGroup.GET("/test", func(context *gin.Context) {
 	//	var result []Room

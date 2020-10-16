@@ -15,11 +15,11 @@ Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
 {
-  "users": [99,1,5,45]
+  "users": [1,9]
 }
 
 ### add message
-POST http://localhost:8080/rooms/message/79
+POST http://localhost:8080/rooms/message/cf9829a26524a6c820df2b8d0a7716d9b22f0be3a6d2a80836e8ac72b0417e67
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 
