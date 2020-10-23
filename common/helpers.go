@@ -1,5 +1,6 @@
 package common
 
+
 func Unique(intSlice []uint) []uint {
 	keys := make(map[uint]bool)
 	var list []uint
@@ -17,9 +18,9 @@ func GetIdFromCtx(id interface{}) uint {
 	return uint(idFloat)
 }
 
-func Contains(val interface{}, slice []uint) bool {
+func Contains(val interface{}, slice interface{}) bool {
 	found := false
-	for _, v := range slice {
+	for _, v := range slice.([]interface{}) {
 		if v == val {
 			found = true
 		}

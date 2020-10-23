@@ -19,11 +19,11 @@ type jwtCustomClaims struct {
 	jwt.StandardClaims
 }
 
-type jwtService struct {
+type JwtService struct {
 	issuer    string
 }
 
-func (j *jwtService) GenerateToken(id uint) (string, error) {
+func (j *JwtService) GenerateToken(id uint) (string, error) {
 	claims := &jwtCustomClaims{
 		ID:             id,
 		StandardClaims: jwt.StandardClaims{
@@ -37,7 +37,7 @@ func (j *jwtService) GenerateToken(id uint) (string, error) {
 
 }
 
-func (j *jwtService) ValidateToken(tokenString string) (*jwt.Token, error) {
+func (j *JwtService) ValidateToken(tokenString string) (*jwt.Token, error) {
 	return jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
@@ -58,7 +58,7 @@ func getSecretKey() string {
 }
 
 func NewJWTService() JWTService {
-	return &jwtService{
+	return &JwtService{
 		issuer:    "shabahy.com",
 	}
 }

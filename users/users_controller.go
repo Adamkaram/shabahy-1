@@ -7,7 +7,7 @@ import (
 )
 
 type Controller struct {
-	service *Service
+	service Service
 }
 
 func (c *Controller) CreateUser(ctx *gin.Context) {
@@ -46,7 +46,7 @@ func (c *Controller) Login(ctx *gin.Context) {
 
 }
 
-func NewController(service *Service) *Controller {
+func NewController(service Service) *Controller {
 	return &Controller{
 		service: service,
 	}

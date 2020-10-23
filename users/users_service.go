@@ -5,13 +5,18 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type Service struct {
+type Service interface {
+	Create(user *User) (string, error)
+	Login(data *LoginUserDTO) (string, *User, error)
+}
+
+type serviceImpl struct {
 	repo Repository
 	jwtService services.JWTService
 }
 
 
-func (s Service) Create(user *User) (string, error) {
+func (s serviceImpl) Create(user *User) (string, error) {
 	password, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.MinCost)
 	user.Password = string(password)
 	err, _ := s.repo.Create(user)
@@ -25,7 +30,7 @@ func (s Service) Create(user *User) (string, error) {
 	return token, nil
 }
 
-func (s Service) Login(data *LoginUserDTO) (string, *User, error) {
+func (s serviceImpl) Login(data *LoginUserDTO) (string, *User, error) {
 	err, user := s.repo.FindUserByIdAndPassword(data)
 	if err != nil {
 		return "", nil, err
@@ -39,9 +44,15 @@ func (s Service) Login(data *LoginUserDTO) (string, *User, error) {
 
 
 
-func NewService(repository *Repository, jwtService *services.JWTService) *Service {
-	return &Service{
+func NewService(repository *Repository, jwtService *services.JWTService) Service {
+	return &serviceImpl{
 		repo: *repository,
 		jwtService: *jwtService,
 	}
+}
+
+func InitUserService() Service {
+	jwtService := services.NewJWTService()
+	repository := *NewRepository()
+	return NewService(&repository, &jwtService)
 }

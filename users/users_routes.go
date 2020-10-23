@@ -3,16 +3,13 @@ package users
 import (
 	"github.com/ElegantSoft/shabahy/common"
 	"github.com/ElegantSoft/shabahy/middlewares"
-	"github.com/ElegantSoft/shabahy/services"
 	"github.com/gin-gonic/gin"
 )
 
 
 var (
-	jwtService = services.NewJWTService()
-	repository = *NewRepository()
-	service    = *NewService(&repository, &jwtService)
-	controller = *NewController(&service)
+	service    = InitUserService()
+	controller = *NewController(service)
 )
 
 func RegisterRoutes(routerGroup *gin.RouterGroup) {
