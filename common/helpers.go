@@ -27,3 +27,4 @@ func Contains(val interface{}, slice interface{}) bool {
 	}
 	return found
 }
+

@@ -1,21 +1,33 @@
 package waiting
 
-type Repository interface {
-	append(waitingUser *Waiting) []Waiting
-}
-
-type RepositoryImpl struct {
+type Repository struct {
 	waitingUsers []Waiting
 }
 
-func (r *RepositoryImpl) append(waitingUser *Waiting) []Waiting {
-	return append(r.waitingUsers, *waitingUser)
+func (r *Repository) Append(waitingUser *Waiting) []Waiting {
+	r.waitingUsers = append(r.waitingUsers, *waitingUser)
+	return r.waitingUsers
 }
 
-func NewRepository() Repository {
-	return &RepositoryImpl{}
+func (r *Repository) Remove(waitingUser *Waiting) []Waiting {
+
+	for idx, v := range r.waitingUsers {
+		if v.user.ID == waitingUser.user.ID {
+			r.waitingUsers = append(r.waitingUsers[0:idx], r.waitingUsers[idx+1:]...)
+			return r.waitingUsers
+		}
+	}
+	return r.waitingUsers
 }
 
-func InitRepository() Repository {
+func (r *Repository) GetMatches() [][]Waiting {
+	return [][]Waiting{r.waitingUsers}
+}
+
+func NewRepository() *Repository {
+	return &Repository{}
+}
+
+func InitRepository() *Repository {
 	return NewRepository()
 }
